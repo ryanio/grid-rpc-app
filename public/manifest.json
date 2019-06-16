@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Grid RPC App",
+  "name": "RPC tester app",
   "icons": [
     {
       "src": "favicon.ico",

@@ -1,33 +1,85 @@
-.App {
+html {
+  height: 100%;
+  width: 100%;
+  background-color: #282c34;
+}
+
+.app {
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+.app-header {
+  padding: 20px;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+h1 {
+  color: #bbb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h4 {
+  margin-top: 0;
+  font-size: 16px;
+  background: #ddd;
+  padding: 10px;
+  margin: -30px -30px 10px -30px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #eee;
+  padding: 40px;
+  text-align: left;
+  border-radius: 1px;
+}
+
+.section-outline {
+  border: 2px solid #ccc;
+  border-radius: 3px;
+  padding: 30px;
+  background: #f2f2f2;
+}
+
+.server {
+}
+
+.server-form {
+}
+
+.section-form {
+  margin-bottom: 30px;
+}
+
+.section-json {
+  margin-top: 10px;
+}
+
+.colon {
+  vertical-align: bottom;
+  padding: 0 4px;
+  line-height: 36px;
+}
+
+.result {
+  margin-top: 20px;
+  padding: 20px;
+  background: #333;
+  border-radius: 3px;
+}
+
+.result h5 {
+  margin-top: 0;
+  color: #aaa;
+}
+
+.result pre {
+  color: #ddd;
+}
+
+pre {
+  white-space: pre-wrap;
+  padding: 20px;
 }
