@@ -79,8 +79,12 @@ class App extends Component {
       const gridPluginsWithRpc = gridPlugins.filter(p => p.sendRpc);
       plugins = [...gridPluginsWithRpc, ...plugins];
     }
-    await this.setState({ plugins });
-    this.handleChange('selectedPlugin')({ target: { value: plugins[0].name } });
+
+    this.setState({ plugins }, () => {
+      this.handleChange('selectedPlugin')({
+        target: { value: plugins[0].name }
+      });
+    });
   };
 
   updatePluginState = pluginState => {
@@ -90,18 +94,20 @@ class App extends Component {
   handleChange = field => async event => {
     const oldSelectedPluginRef = this.selectedPluginRef();
     const value = event.target.value;
-    await this.setState({ [field]: value, error: null });
-    if (field === 'selectedPlugin') {
-      let pluginState = null;
-      if (value !== 'custom') {
-        pluginState = this.selectedPluginRef().getState();
-        this.setState({ pluginState });
-        this.selectedPluginRef().on('newState', this.updatePluginState);
-        if (oldSelectedPluginRef.off) {
-          oldSelectedPluginRef.off('newState', this.updatePluginState);
+
+    this.setState({ [field]: value, error: null }, () => {
+      if (field === 'selectedPlugin') {
+        let pluginState = null;
+        if (value !== 'custom') {
+          pluginState = this.selectedPluginRef().getState();
+          this.setState({ pluginState });
+          this.selectedPluginRef().on('newState', this.updatePluginState);
+          if (oldSelectedPluginRef.off) {
+            oldSelectedPluginRef.off('newState', this.updatePluginState);
+          }
         }
       }
-    }
+    });
   };
 
   reset = () => {
@@ -177,9 +183,7 @@ class App extends Component {
             key="close"
             aria-label="Close"
             color="inherit"
-            onClick={() => {
-              this.setState({ error: null });
-            }}
+            onClick={() => this.setState({ error: null })}
           >
             <CloseIcon classes={{ root: classes.closeIcon }} />
           </IconButton>
@@ -292,19 +296,11 @@ class App extends Component {
           variant="contained"
           color="primary"
           className={classes.send}
-          onClick={() => {
-            this.send();
-          }}
+          onClick={() => this.send()}
         >
           Send
         </Button>
-        <Button
-          onClick={() => {
-            this.reset();
-          }}
-        >
-          Reset
-        </Button>
+        <Button onClick={() => this.reset()}>Reset</Button>
       </div>
     );
   }
