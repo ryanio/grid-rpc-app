@@ -574,23 +574,33 @@ class App extends Component {
           <h4>Message</h4>
           <div className="section-json">
             <div>
-              <Select
-                classes={classes}
-                className={classes.method}
-                styles={selectStyles}
-                inputId="react-select-single"
-                TextFieldProps={{
-                  InputLabelProps: {
-                    htmlFor: 'react-select-single',
-                    shrink: true
-                  }
-                }}
-                placeholder="Method"
-                options={methods}
-                components={components}
-                value={method && { label: method, value: method }}
-                onChange={this.handleChange('method')}
-              />
+              {selectedPlugin !== 'geth' && (
+                <TextField
+                  label="Method"
+                  value={method}
+                  className={classes.method}
+                  onChange={this.handleChange('method')}
+                />
+              )}
+              {selectedPlugin === 'geth' && (
+                <Select
+                  classes={classes}
+                  className={classes.method}
+                  styles={selectStyles}
+                  inputId="react-select-single"
+                  TextFieldProps={{
+                    InputLabelProps: {
+                      htmlFor: 'react-select-single',
+                      shrink: true
+                    }
+                  }}
+                  placeholder="Method"
+                  options={methods}
+                  components={components}
+                  value={method && { label: method, value: method }}
+                  onChange={this.handleChange('method')}
+                />
+              )}
             </div>
             <div>
               <TextField
