@@ -5,10 +5,12 @@
   "dependencies": {
     "@material-ui/core": "^4.1.0",
     "@material-ui/icons": "^4.1.0",
+    "clsx": "^1.0.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-json-pretty": "^2.1.0",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "react-select": "^3.0.4"
   },
   "scripts": {
     "start": "react-scripts start",
