@@ -52,6 +52,11 @@ const styles = theme => ({
   closeIcon: {
     opacity: 0.9
   },
+  input: {
+    display: 'flex',
+    padding: 0,
+    height: 'auto'
+  },
   valueContainer: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -72,6 +77,16 @@ const styles = theme => ({
   },
   noOptionsMessage: {
     padding: theme.spacing(1, 2)
+  },
+  paper: {
+    position: 'absolute',
+    zIndex: 1,
+    marginTop: theme.spacing(1),
+    left: 0,
+    right: 0
+  },
+  divider: {
+    height: theme.spacing(2)
   }
 });
 
