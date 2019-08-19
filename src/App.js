@@ -16,7 +16,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import CancelIcon from '@material-ui/icons/Cancel';
 import theme from 'react-json-pretty/dist/adventure_time';
 import Select from 'react-select';
-import gethMethods from './rpcMethods';
+import pluginMethods from './rpcMethods';
 import './App.css';
 
 let nextId = 0;
@@ -511,10 +511,13 @@ class App extends Component {
       })
     };
 
-    const methods = gethMethods.map(method => ({
-      label: method,
-      value: method
-    }));
+    let methods = [];
+    if (pluginMethods[selectedPlugin]) {
+      methods = pluginMethods[selectedPlugin].map(method => ({
+        label: method,
+        value: method
+      }));
+    }
 
     const components = {
       Control,
@@ -589,7 +592,7 @@ class App extends Component {
           <h4>Message</h4>
           <div className="section-json">
             <div>
-              {selectedPlugin !== 'geth' && (
+              {selectedPlugin !== 'geth' && selectedPlugin !== 'parity' && (
                 <TextField
                   label="Method"
                   value={method}
@@ -597,7 +600,7 @@ class App extends Component {
                   onChange={this.handleChange('method')}
                 />
               )}
-              {selectedPlugin === 'geth' && (
+              {(selectedPlugin === 'geth' || selectedPlugin === 'parity') && (
                 <Select
                   classes={classes}
                   className={classes.method}
