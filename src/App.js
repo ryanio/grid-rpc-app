@@ -97,6 +97,7 @@ const styles = theme => ({
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       plugins: [{ name: 'custom', displayName: 'Custom' }],
       pluginState: null,
@@ -268,11 +269,19 @@ class App extends Component {
     };
 
     let methods = [];
+    let exampleParams = '[]';
     if (pluginMethods[selectedPlugin]) {
-      methods = pluginMethods[selectedPlugin].map(method => ({
-        label: method,
-        value: method
+      methods = pluginMethods[selectedPlugin].map(m => ({
+        label: m.method,
+        value: m.method
       }));
+
+      const pluginMethod = pluginMethods[selectedPlugin].find(
+        m => m.method === method
+      );
+      if (pluginMethod && pluginMethod.exampleParams) {
+        exampleParams = pluginMethod.exampleParams;
+      }
     }
 
     const components = {
@@ -378,8 +387,9 @@ class App extends Component {
             </div>
             <div>
               <TextField
+                multiline
                 label="Params"
-                placeholder="[]"
+                placeholder={exampleParams}
                 value={params}
                 onChange={this.handleChange('params')}
                 fullWidth
