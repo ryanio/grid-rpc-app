@@ -20,19 +20,18 @@ h1 {
   color: #bbb;
 }
 
-h4 {
-  margin-top: 0;
+.section-title {
   font-size: 16px;
   background: #ddd;
   padding: 10px;
-  margin: -30px -30px 10px -30px;
+  font-weight: bold;
 }
 
 .container {
-  max-width: 800px;
+  max-width: 860px;
   margin: 0 auto;
   background: #eee;
-  padding: 40px;
+  padding: 30px;
   text-align: left;
   border-radius: 1px;
 }
@@ -40,7 +39,6 @@ h4 {
 .section-outline {
   border: 2px solid #ccc;
   border-radius: 3px;
-  padding: 30px;
   background: #f2f2f2;
 }
 
@@ -50,12 +48,51 @@ h4 {
 .server-form {
 }
 
+.section-body {
+  padding: 12px 12px 12px 12px;
+}
+
 .section-form {
   margin-bottom: 30px;
 }
 
+.message-content {
+  display: flex;
+}
+
 .section-json {
-  margin-top: 10px;
+  flex-grow: 1;
+}
+
+.section-docs {
+  flex-grow: 0;
+  background-color: #fff;
+  color: #555;
+  border-radius: 3px;
+  max-width: 386px;
+  padding: 12px;
+  margin-left: 12px;
+}
+
+.docs-method {
+  font-weight: bold;
+  margin-bottom: 6px;
+  font-size: 18px;
+}
+
+.docs-description {
+  font-size: 13px;
+  padding-bottom: 12px;
+}
+
+.docs-title {
+  margin: 6px 0;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.docs-copy {
+  font-size: 12px;
 }
 
 .colon {

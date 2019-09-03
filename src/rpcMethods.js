@@ -1,6 +1,15 @@
 const geth = [
   { method: 'web3_clientVersion' },
-  { method: 'web3_sha3', exampleParams: '["0x68656c6c6f20776f726c64"]' },
+  {
+    method: 'web3_sha3',
+    description:
+      'Returns Keccak-256 (not the standardized SHA3-256) of the given data.',
+    exampleParams: '["0x68656c6c6f20776f726c64"]',
+    exampleResult:
+      '"0x47173285a8d7341e5e972fc677286384f802f8ef42a5ec5f03bbfa254cb01fad"',
+    descriptionParams: 'DATA - the data to convert into a SHA3 hash.',
+    descriptionResult: 'DATA - The SHA3 result of the given string.'
+  },
   { method: 'net_version' },
   { method: 'net_peerCount' },
   { method: 'net_listening' },
