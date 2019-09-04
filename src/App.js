@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { emphasize, withStyles } from '@material-ui/core/styles';
 import JSONPretty from 'react-json-pretty';
+import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
@@ -315,6 +316,12 @@ class App extends Component {
             State: <strong>{pluginState}</strong>
           </div>
         )}
+        {selectedPlugin === 'clef' && (
+          <div style={{ marginBottom: 20 }}>
+            Please ensure in your Clef settings that{' '}
+            <strong>RPC External API</strong> is set to <strong>IPC</strong>.
+          </div>
+        )}
         {selectedPlugin === 'custom' && (
           <div className="server section-form section-outline">
             <div className="section-title">Server</div>
@@ -359,7 +366,7 @@ class App extends Component {
             <div className="message-content">
               <div className="section-json">
                 <div>
-                  {selectedPlugin !== 'geth' && selectedPlugin !== 'parity' && (
+                  {!pluginMethods[selectedPlugin] && (
                     <TextField
                       label="Method"
                       value={method}
@@ -367,8 +374,7 @@ class App extends Component {
                       onChange={this.handleChange('method')}
                     />
                   )}
-                  {(selectedPlugin === 'geth' ||
-                    selectedPlugin === 'parity') && (
+                  {pluginMethods[selectedPlugin] && (
                     <Select
                       classes={classes}
                       className={classes.method}
@@ -413,7 +419,7 @@ class App extends Component {
                   </div>
                   <JSONPretty
                     id="json-pretty"
-                    data={pluginMethod.exampleParams}
+                    data={pluginMethod.exampleParams || '[]'}
                     theme={theme}
                   ></JSONPretty>
                   <div className="docs-title">Returns</div>
@@ -470,12 +476,14 @@ class App extends Component {
         <header className="app-header">
           <h1>Grid RPC Tester</h1>
         </header>
-        <div className="container">
-          {this.renderForm()}
-          {this.renderError()}
-          {this.renderButtons()}
-          {this.renderResult()}
-        </div>
+        <Container className="container">
+          <main>
+            {this.renderForm()}
+            {this.renderError()}
+            {this.renderButtons()}
+            {this.renderResult()}
+          </main>
+        </Container>
       </div>
     );
   }

@@ -13,11 +13,11 @@ html {
   padding: 20px;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
 }
 
 h1 {
   color: #bbb;
+  font-size: 30px;
 }
 
 .section-title {
@@ -28,11 +28,9 @@ h1 {
 }
 
 .container {
-  max-width: 860px;
-  margin: 0 auto;
   background: #eee;
-  padding: 30px;
   text-align: left;
+  padding: 30px;
   border-radius: 1px;
 }
 
@@ -83,6 +81,7 @@ h1 {
 .docs-description {
   font-size: 13px;
   padding-bottom: 12px;
+  white-space: pre-line;
 }
 
 .docs-title {
@@ -93,6 +92,7 @@ h1 {
 
 .docs-copy {
   font-size: 12px;
+  white-space: pre-line;
 }
 
 .colon {
