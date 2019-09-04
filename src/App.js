@@ -169,6 +169,7 @@ class App extends Component {
   };
 
   send = async () => {
+    this.setState({ result: 'Pending...' });
     const { selectedPlugin, method, pluginState } = this.state;
     let { params } = this.state;
     if (!params || params === '') {
@@ -476,8 +477,15 @@ class App extends Component {
         <header className="app-header">
           <h1>Grid RPC Tester</h1>
         </header>
-        <Container className="container">
-          <main>
+        <Container>
+          <main
+            style={{
+              textAlign: 'left',
+              background: '#eee',
+              padding: 25,
+              borderRadius: 2
+            }}
+          >
             {this.renderForm()}
             {this.renderError()}
             {this.renderButtons()}

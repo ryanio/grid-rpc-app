@@ -27,13 +27,6 @@ h1 {
   font-weight: bold;
 }
 
-.container {
-  background: #eee;
-  text-align: left;
-  padding: 30px;
-  border-radius: 1px;
-}
-
 .section-outline {
   border: 2px solid #ccc;
   border-radius: 3px;
