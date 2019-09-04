@@ -97,6 +97,7 @@ const styles = theme => ({
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       plugins: [{ name: 'custom', displayName: 'Custom' }],
       pluginState: null,
@@ -268,11 +269,17 @@ class App extends Component {
     };
 
     let methods = [];
+    let pluginMethod;
+
     if (pluginMethods[selectedPlugin]) {
-      methods = pluginMethods[selectedPlugin].map(method => ({
-        label: method,
-        value: method
+      methods = pluginMethods[selectedPlugin].map(m => ({
+        label: m.method,
+        value: m.method
       }));
+
+      pluginMethod = pluginMethods[selectedPlugin].find(
+        m => m.method === method
+      );
     }
 
     const components = {
@@ -310,80 +317,116 @@ class App extends Component {
         )}
         {selectedPlugin === 'custom' && (
           <div className="server section-form section-outline">
-            <h4>Server</h4>
-            <div className="server-fields">
-              <TextField
-                select
-                className={classes.http}
-                label=" "
-                value={http}
-                onChange={this.handleChange('http')}
-                inline
-              >
-                {httpTypes.map(option => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <TextField
-                label="Host"
-                value={host}
-                placeholder="localhost"
-                onChange={this.handleChange('host')}
-                inline
-              />
-              <span className="colon">:</span>
-              <TextField
-                label="Port"
-                value={port}
-                placeholder="8545"
-                onChange={this.handleChange('port')}
-                inline
-              />
+            <div className="section-title">Server</div>
+            <div className="section-body">
+              <div className="server-fields">
+                <TextField
+                  select
+                  className={classes.http}
+                  label=" "
+                  value={http}
+                  onChange={this.handleChange('http')}
+                  inline
+                >
+                  {httpTypes.map(option => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <TextField
+                  label="Host"
+                  value={host}
+                  placeholder="localhost"
+                  onChange={this.handleChange('host')}
+                  inline
+                />
+                <span className="colon">:</span>
+                <TextField
+                  label="Port"
+                  value={port}
+                  placeholder="8545"
+                  onChange={this.handleChange('port')}
+                  inline
+                />
+              </div>
             </div>
           </div>
         )}
         <div className="message section-outline section-form">
-          <h4>Message</h4>
-          <div className="section-json">
-            <div>
-              {selectedPlugin !== 'geth' && selectedPlugin !== 'parity' && (
-                <TextField
-                  label="Method"
-                  value={method}
-                  className={classes.method}
-                  onChange={this.handleChange('method')}
-                />
-              )}
-              {(selectedPlugin === 'geth' || selectedPlugin === 'parity') && (
-                <Select
-                  classes={classes}
-                  className={classes.method}
-                  styles={selectStyles}
-                  inputId="react-select-single"
-                  TextFieldProps={{
-                    InputLabelProps: {
-                      htmlFor: 'react-select-single',
-                      shrink: true
+          <div className="section-title">Message</div>
+          <div className="section-body">
+            <div className="message-content">
+              <div className="section-json">
+                <div>
+                  {selectedPlugin !== 'geth' && selectedPlugin !== 'parity' && (
+                    <TextField
+                      label="Method"
+                      value={method}
+                      className={classes.method}
+                      onChange={this.handleChange('method')}
+                    />
+                  )}
+                  {(selectedPlugin === 'geth' ||
+                    selectedPlugin === 'parity') && (
+                    <Select
+                      classes={classes}
+                      className={classes.method}
+                      styles={selectStyles}
+                      inputId="react-select-single"
+                      TextFieldProps={{
+                        InputLabelProps: {
+                          htmlFor: 'react-select-single',
+                          shrink: true
+                        }
+                      }}
+                      placeholder="Method"
+                      options={methods}
+                      components={components}
+                      value={method && { label: method, value: method }}
+                      onChange={this.handleChange('method')}
+                    />
+                  )}
+                </div>
+                <div>
+                  <TextField
+                    multiline
+                    label="Params"
+                    placeholder={
+                      (pluginMethod && pluginMethod.exampleParams) || '[]'
                     }
-                  }}
-                  placeholder="Method"
-                  options={methods}
-                  components={components}
-                  value={method && { label: method, value: method }}
-                  onChange={this.handleChange('method')}
-                />
+                    value={params}
+                    onChange={this.handleChange('params')}
+                    fullWidth
+                  />
+                </div>
+              </div>
+              {pluginMethod && pluginMethod.description && (
+                <div className="section-docs">
+                  <div className="docs-method">{method}</div>
+                  <div className="docs-description">
+                    {pluginMethod.description}
+                  </div>
+                  <div className="docs-title">Parameters</div>
+                  <div className="docs-copy">
+                    {pluginMethod.descriptionParams}
+                  </div>
+                  <JSONPretty
+                    id="json-pretty"
+                    data={pluginMethod.exampleParams}
+                    theme={theme}
+                  ></JSONPretty>
+                  <div className="docs-title">Returns</div>
+                  <div className="docs-copy">
+                    {pluginMethod.descriptionResult}
+                  </div>
+                  <JSONPretty
+                    id="json-pretty"
+                    data={pluginMethod.exampleResult}
+                    theme={theme}
+                  ></JSONPretty>
+                </div>
               )}
-            </div>
-            <div>
-              <TextField
-                label="Params"
-                placeholder="[]"
-                value={params}
-                onChange={this.handleChange('params')}
-                fullWidth
-              />
             </div>
           </div>
         </div>
