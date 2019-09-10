@@ -40,6 +40,9 @@ const styles = theme => ({
   pluginState: {
     marginBottom: 30
   },
+  connectButton: {
+    marginLeft: 10
+  },
   send: {
     marginRight: 10
   },
@@ -139,6 +142,12 @@ class App extends Component {
 
   updatePluginState = pluginState => {
     this.setState({ pluginState: pluginState.toUpperCase() });
+  };
+
+  handlePluginStart = () => {
+    const { selectedPlugin } = this.state;
+    const plugin = window.grid.getClient(selectedPlugin);
+    plugin.start();
   };
 
   handleChange = field => async event => {
@@ -315,6 +324,15 @@ class App extends Component {
         {selectedPlugin !== 'custom' && (
           <div className={classes.pluginState}>
             State: <strong>{pluginState}</strong>
+            <Button
+              disabled={pluginState !== 'STOPPED'}
+              variant="contained"
+              color="primary"
+              className={classes.connectButton}
+              onClick={this.handlePluginStart}
+            >
+              Start
+            </Button>
           </div>
         )}
         {selectedPlugin === 'clef' && (
